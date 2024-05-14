@@ -2,7 +2,7 @@
     @csrf
     @method('PUT')  {{-- Metoda PUT dla aktualizacji danych --}}
     <div class="form-group">
-        <label for="name">Name:</label>
+        <label for="name">Imię:</label>
         <input type="text" class="form-control" id="name" name="name" value="{{ $pet['name'] }}" required>
     </div>
     <div class="form-group">
@@ -14,8 +14,8 @@
         </select>
     </div>
     <div class="form-group">
-        <label for="photoUrls">Photo URL:</label>
+        <label for="photoUrls">url zdjęcia:</label>
         <input type="text" class="form-control" id="photoUrls" name="photoUrls" value="{{ $pet['photoUrls'][0] ?? '' }}" required>
     </div>
-    <button type="submit" class="btn btn-primary">Update Pet</button>
+    <button type="submit" class="btn btn-primary">Zaktualizuj dane zwierzaka</button>
 </form>

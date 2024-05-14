@@ -5,7 +5,7 @@
         <input type="number" class="form-control" id="id" name="id" required>
     </div>
     <div class="form-group">
-        <label for="name">Name:</label>
+        <label for="name">Imię:</label>
         <input type="text" class="form-control" id="name" name="name" required>
     </div>
     <div class="form-group">
@@ -17,8 +17,8 @@
         </select>
     </div>
     <div class="form-group">
-        <label for="photoUrls">Photo URL:</label>
+        <label for="photoUrls">url zdjęcia:</label>
         <input type="text" class="form-control" id="photoUrls" name="photoUrls" required>
     </div>
-    <button type="submit" class="btn btn-primary">Add Pet</button>
+    <button type="submit" class="btn btn-primary">Dodaj zwierzaka</button>
 </form>

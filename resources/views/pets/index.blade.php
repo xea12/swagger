@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Pets List</title>
+    <title>Lista zwierzaków</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -73,7 +73,7 @@
 </head>
 <body>
 
-<h1>Available Pets</h1>
+<h1>Dostępne zwierzaki</h1>
 <div style="text-align: center; margin-bottom: 20px">
     <a href="{{ route('pets.create') }}" class="btn btn-primary">Dodaj zwierzaka</a>
 </div>
@@ -85,15 +85,15 @@
                 <img src="{{ $pet['photoUrls'][0] }}" alt="{{ $pet['name'] ?? 'Brak imienia' }}" class="pet-image">
             @endif
             <div class="pet-info">
-                <h3>{{ $pet['id'] ?? 'No id' }} - {{ $pet['name'] ?? 'No Name' }}</h3>
-
+                <h3>{{ $pet['id'] ?? 'Brak ID' }} - {{ $pet['name'] ?? 'Brak Imienia' }} ---> {{ $pet['status'] ?? 'Brak statusu' }}</h3>
             </div>
             <div class="pet-actions">
+                <a href="{{ route('pets.show', $pet['id']) }}" class="btn btn-primary">Podgląd</a>
                 <a href="{{ route('pets.edit', $pet['id']) }}" class="btn btn-secondary">Edytuj</a>
                 <form action="{{ route('pets.destroy', $pet['id']) }}" method="POST">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-danger">Usuń</button>
                 </form>
             </div>
         </li>

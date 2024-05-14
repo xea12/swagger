@@ -5,8 +5,13 @@
     <title>View Pet</title>
 </head>
 <body>
-<h1>View Pet</h1>
-<p>Name: {{ $pet->name }}</p>
-<p>Status: {{ $pet->status }}</p>
+<h1>Dane zwierzaka</h1>
+<p><strong>ID:</strong> {{ $pet['id'] ?? 'Brak id' }}</p>
+<p><strong>Name:</strong> {{ $pet['name'] ?? 'Brak imienia' }}</p>
+<p><strong>Status:</strong> {{ $pet['status'] ?? 'Brak statusu' }}</p>
+<p><strong>Kategoria:</strong> {{ $pet['category']['name'] ?? 'Brak kategorii' }}</p>
+<p><strong>Link do zdjęcia:</strong> {{ $pet['photoUrls'][0] ?? 'Brak zdjęcia' }}</p>
+<p><strong>Tagi:</strong> {{ $pet['tags']['name'] ?? 'Brak tagów' }}</p>
+
 </body>
 </html>

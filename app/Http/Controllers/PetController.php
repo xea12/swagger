@@ -18,13 +18,13 @@ class PetController extends Controller
     public function index()
     {
         try {
-            $response = $this->client->request('GET', 'pet/findByStatus?status=available');
-            $pets = json_decode($response->getBody()->getContents(), true); // Dekoduj bezpośrednio jako tablicę
+            $response = $this->client->request('GET', 'pet/findByStatus?status=available,pending,sold');
+            $pets = json_decode($response->getBody()->getContents(), true);
             usort($pets, function($a, $b) {
-                return $a['id'] <=> $b['id'];  // Sortuj malejąco
+                return $a['id'] <=> $b['id'];
             });
 
-            return view('pets.index', compact('pets')); // Zmień 'dataArray' na 'pets' dla spójności
+            return view('pets.index', compact('pets'));
         } catch (\Exception $e) {
             return back()->withError($e->getMessage())->withInput();
         }
@@ -35,8 +35,8 @@ class PetController extends Controller
             $postData = [
                 'id' => $request->id,
                 'name' => $request->name,
-                'photoUrls' => [$request->photoUrls],  // Zakładając, że 'photoUrls' jest pojedynczym URL jako string
-                'status' => $request->status  // 'available', 'pending', 'sold'
+                'photoUrls' => [$request->photoUrls],
+                'status' => $request->status
             ];
 
             $response = $this->client->request('POST', 'pet', [
@@ -44,9 +44,9 @@ class PetController extends Controller
             ]);
 
             if ($response->getStatusCode() == 200) {
-                return redirect()->route('pets.index')->with('success', 'Pet added successfully!');
+                return redirect()->route('pets.index')->with('success', 'Zwierzak dodany!');
             } else {
-                return back()->withError('Failed to add pet')->withInput();
+                return back()->withError('Nie udało się dodać zwierzaka')->withInput();
             }
         } catch (\Exception $e) {
             return back()->withError($e->getMessage())->withInput();
@@ -72,6 +72,7 @@ class PetController extends Controller
 
     public function update(Request $request, $id)
     {
+        \Log::info('Update data:', $request->all());
         try {
             $updateData = [
                 'id' => $id,
@@ -80,11 +81,30 @@ class PetController extends Controller
                 'status' => $request->status
             ];
 
-            $response = $this->client->request('PUT', "pet/{$id}", [
+            $response = $this->client->request('PUT', "pet", [
                 'json' => $updateData
             ]);
+            \Log::info('API Response:', [
+                'status' => $response->getStatusCode(),
+                'body' => $response->getBody()->getContents()
+            ]);
 
-            return redirect()->route('pets.index')->with('success', 'Pet updated successfully!');
+            if ($response->getStatusCode() == 200) {
+                return redirect()->route('pets.index')->with('success', 'Dane zaktualizowano');
+            } else {
+                return back()->withError('nie udało się zaktualizować danych')->withInput();
+            }
+        } catch (\Exception $e) {
+            return back()->withError($e->getMessage())->withInput();
+        }
+    }
+    public function show($id)
+    {
+        try {
+            $response = $this->client->request('GET', "pet/{$id}");
+            $pet = json_decode($response->getBody()->getContents(), true);
+
+            return view('pets.show', compact('pet'));
         } catch (\Exception $e) {
             return back()->withError($e->getMessage())->withInput();
         }
