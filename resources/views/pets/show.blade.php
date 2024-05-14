@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>View Pet</title>
+    <title>Podgląd Zwierzaka</title>
 </head>
 <body>
 <h1>Dane zwierzaka</h1>

@@ -1,6 +1,6 @@
 <form method="POST" action="{{ route('pets.update', $pet['id']) }}">
     @csrf
-    @method('PUT')  {{-- Metoda PUT dla aktualizacji danych --}}
+    @method('PUT')
     <div class="form-group">
         <label for="name">Imię:</label>
         <input type="text" class="form-control" id="name" name="name" value="{{ $pet['name'] }}" required>
